@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
   loginSubmit(): void {
     this.authService.signIn(this.loginForm.value).subscribe(a => {
       if (a) {
-        this.authService.persistToken(a);
         this.router.navigate(['/']);
       }
     })
