@@ -5,6 +5,14 @@
 @import './styles/variables.scss';
 
 
+body {
+  color: var(--primary-color);
+}
+
 .custom-link {
   color: var(--primary-color);
+
+  &:hover {
+    color: var(--primary-color);
+  }
 }
