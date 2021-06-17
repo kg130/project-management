@@ -1,1 +1,24 @@
-<p>home works!</p>
+<div>
+  <div>
+    <div class="projectCont p-3" *ngFor="let project of projects">
+      <div class="row">
+        <div class="col-4">Name: {{project.name}}</div>
+        <div class="col-4">Location: {{project.location}}</div>
+        <div class="col-4">Size: {{project.size}} Katha</div>
+      </div>
+      <div class="row">
+        <div class="col-4">Start Date: {{project.start | date}}</div>
+        <div class="col-4">Status: {{project.status | projectStatus}}</div>
+        <div class="col-4">Type: {{project.type | projectType}}</div>
+      </div>
+      <div class="row">
+        <div class="col-6">Ownership: {{project.ownership}}</div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button (click)="deleteProject(project)">Delete Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

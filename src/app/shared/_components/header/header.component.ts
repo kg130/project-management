@@ -12,6 +12,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggedIn: boolean = false;
   subscription: Subscription[] = [];
 
+  headOpts = [
+    { path: '/projects', label: 'Projects' },
+    { path: '/summary', label: 'Summary' },
+    { path: '/create', label: 'Create Project' },
+  ]
+
   constructor(
     private authService: AuthService
   ) {}
@@ -22,6 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.map(i => i.unsubscribe());
+  }
+
+  selectedRoute(head: any): boolean {
+    return window.location.href.includes(head.path);
   }
 
   logout(): void {

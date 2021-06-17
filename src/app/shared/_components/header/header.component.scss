@@ -5,4 +5,15 @@
 .userIcon {
   font-size: 25px;
   cursor: pointer;
+
+  i {
+    padding: 5px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+  }
+}
+
+.selected-route {
+  color: var(--secondary-color);
+  text-decoration: underline;
 }

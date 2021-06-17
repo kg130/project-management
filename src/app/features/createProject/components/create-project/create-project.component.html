@@ -1,0 +1,41 @@
+<div class="p-5">
+  <div class="row justify-content-center">
+    <form [formGroup]="project" (ngSubmit)="createProject()">
+      <div class="form-group row">
+        <label class="col-4 m-0 align-self-center">Name</label>
+        <input type="text" class="form-control col-8" formControlName="name" required />
+      </div>
+      <div class="form-group row">
+        <label class="col-4 m-0 align-self-center">Location</label>
+        <input type="text" class="form-control col-8" formControlName="location" required />
+      </div>
+      <div class="form-group row">
+        <label class="col-4 m-0 align-self-center">Start Date</label>
+        <input type="date" class="form-control col-8" formControlName="startDate" required />
+      </div>
+      <div class="form-group row">
+        <label class="col-4 m-0 align-self-center">Size</label>
+        <input type="number" class="form-control col-8" formControlName="size" required />
+      </div>
+      <div class="form-group row">
+        <label class="col-4 m-0 align-self-center">Project Type</label>
+        <select class="form-control col-8" formControlName="type" required>
+          <option *ngFor="let statKey of projectTypeArr" [value]="statKey.value">{{statKey.label}}</option>
+        </select>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 m-0 align-self-center">Ownership</label>
+        <input class="form-control col-8" type="text" formControlName="ownership" required />
+      </div>
+      <div class="form-group row">
+        <label class="col-4 m-0 align-self-center">Status</label>
+        <select class="form-control col-8" formControlName="status" required>
+          <option *ngFor="let statKey of projectStatusArr" [value]="statKey.value">{{statKey.label}}</option>
+        </select>
+      </div>
+      <div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -16,3 +16,7 @@ body {
     color: var(--primary-color);
   }
 }
+
+.dropdown-toggle::after {
+  display: none;
+}
