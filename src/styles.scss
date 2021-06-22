@@ -20,3 +20,15 @@ body {
 .dropdown-toggle::after {
   display: none;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.primary-color {
+  color: var(--primary-color) !important;
+}
+
+.secondary-color {
+  color: var(--secondary-color) !important;
+}

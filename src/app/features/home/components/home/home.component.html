@@ -1,24 +1,36 @@
 <div>
   <div>
-    <div class="projectCont p-3" *ngFor="let project of projects">
+    <div class="projectCont py-3 px-4" *ngFor="let project of projects">
       <div class="row">
-        <div class="col-4">Name: {{project.name}}</div>
-        <div class="col-4">Location: {{project.location}}</div>
-        <div class="col-4">Size: {{project.size}} Katha</div>
-      </div>
-      <div class="row">
-        <div class="col-4">Start Date: {{project.start | date}}</div>
-        <div class="col-4">Status: {{project.status | projectStatus}}</div>
-        <div class="col-4">Type: {{project.type | projectType}}</div>
-      </div>
-      <div class="row">
-        <div class="col-6">Ownership: {{project.ownership}}</div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-primary mr-3" [routerLink]="[project._id]">View Project</button>
-          <button class="btn btn-primary mr-3" [routerLink]="['../', 'manage', project._id]">Edit Project</button>
-          <button class="btn btn-danger" (click)="deleteProject(project)">Delete Project</button>
+        <div class="col-8">
+          <h5 class="m-0 cursor-pointer" [routerLink]="[project._id]">
+            {{project.name}}
+            <span style="font-size: 14px;">({{project.size}} Katha) ({{project.type | projectType}} project) - {{project.ownership}}</span>
+          </h5>
+          <div class="details">
+            <div>
+              <i class="las la-map-marker"></i>
+              {{project.location}}
+            </div>
+            <div>
+              <i class="las la-rocket"></i>
+              {{project.start | date}}
+            </div>
+          </div>
+        </div>
+        <div class="col-4 align-self-center text-right">
+          <div>
+            <!-- {{project.status | projectStatus}} -->
+            <button class="btn primary-color p-1 mr-2" [routerLink]="[project._id]">
+              <i style="font-size: 18px;" class="las la-eye"></i>
+            </button>
+            <button class="btn primary-color p-1 mr-2" [routerLink]="['../', 'manage', project._id]">
+              <i style="font-size: 18px;" class="las la-pencil-alt"></i>
+            </button>
+            <button class="btn secondary-color p-1" (click)="deleteProject(project)">
+              <i style="font-size: 18px;" class="las la-trash-alt"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

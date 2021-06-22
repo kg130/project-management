@@ -1,3 +1,12 @@
 .projectCont {
   border: 1px solid #eee;
+
+  .details {
+    font-size: 14px;
+
+    i {
+      font-size: 17px;
+      margin-left: -2px;
+    }
+  }
 }
