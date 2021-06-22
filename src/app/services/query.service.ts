@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
-import { ProjectModel } from "../shared/_models";
+import { DocumentInterface, ProjectModel } from "../shared/_models";
+import { fetchDocumentsByProjectId, fetchProjectById, fetchProjectsQuery, fetchSummary } from "../shared/_transactions";
 import { ApiService } from "./api.service";
 import { MapperService } from "./mapper.service";
 
@@ -12,9 +13,8 @@ import { MapperService } from "./mapper.service";
 })
 export class QueryService {
 
-  baseUrl = environment.baseUrl;
-  networkName = environment.networkName;
-  dbId = environment.dbId;
+  projectUrl = `${environment.baseUrl}/fdb/${environment.networkName}/${environment.dbId}`;
+  url = `${this.projectUrl}/query`;
 
   constructor(
     private apiService: ApiService,
@@ -22,10 +22,30 @@ export class QueryService {
   ) {}
 
   queryProjects(): Observable<ProjectModel[]> {
-    const url = `${this.baseUrl}/fdb/${this.networkName}/${this.dbId}/query`;
-    const query = { "select": ["*"], "from": "projects" };
-    return this.apiService.post(url, query, {}).pipe(map((resp: any[]) => {
+    const query = fetchProjectsQuery;
+    return this.apiService.post(this.url, query, {}).pipe(map((resp: any[]) => {
       return this.mapperService.queryProjectMapper(resp);
+    }));
+  }
+
+  querySummary(): Observable<DocumentInterface[]> {
+    const query = fetchSummary();
+    return this.apiService.post(this.url, query, {}).pipe(map((resp: any[]) => {
+      return this.mapperService.queryDocumentMapper(resp);
+    }));
+  }
+
+  queryProjectById(projectId: number): Observable<ProjectModel[]> {
+    const query = fetchProjectById(projectId);
+    return this.apiService.post(this.url, query, {}).pipe(map((resp: any[]) => {
+      return this.mapperService.queryProjectMapper(resp);
+    }));
+  }
+
+  queryDocumentsByProjectId(projectId: number): Observable<DocumentInterface[]> {
+    const query = fetchDocumentsByProjectId(projectId);
+    return this.apiService.post(this.url, query, {}).pipe(map((resp: any[]) => {
+      return this.mapperService.queryDocumentMapper(resp);
     }));
   }
 }

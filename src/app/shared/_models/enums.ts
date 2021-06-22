@@ -1,0 +1,18 @@
+export enum Status {
+  NA = 0,
+  NOTRECEIVED,
+  RECEIVED,
+  VERIFICATION,
+  PENDING,
+  COMPLETED,
+  EXPIRED,
+  DRAFT,
+  SIGNED,
+}
+
+export enum ProjectPhase {
+  PURCHASE = 1,
+  PLANNING,
+  CONSTRUCTION,
+  COMPLETION
+}

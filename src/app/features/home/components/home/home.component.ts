@@ -18,11 +18,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.queryService.queryProjects().subscribe((resp: any) => {
-      if (resp) {
-        this.projects = resp;
-      }
-    })
+    this.queryService.queryProjects().subscribe((resp: ProjectModel[]) => this.projects = resp || []);
   }
 
   deleteProject(project: ProjectModel): void {

@@ -1,1 +1,16 @@
-<p>summary works!</p>
+<div>
+  <div>
+    <div class="p-3" *ngFor="let doc of documents">
+      <div class="row">
+        <div class="col-4">Name: {{doc.name}}</div>
+        <div class="col-4">Status: {{doc.status | projectStatus}}</div>
+        <div class="col-4">Remarks: {{doc.remarks}}</div>
+      </div>
+      <div class="row">
+        <div class="col-4">Signed Date: {{doc.signeddate | date}}</div>
+        <div class="col-4">Signed By: {{doc.signedby}}</div>
+        <div class="col-4">Expiry Date: {{doc.expiredate | date}}</div>
+      </div>
+    </div>
+  </div>
+</div>

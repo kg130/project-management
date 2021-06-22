@@ -1,36 +1,20 @@
+import { Status } from "./enums";
+
 export interface ProjectModel {
-  _id: string;
+  _id: number;
   name: string;
   location: string;
   start: number;
   size: number;
   type: number;
   ownership: string;
-  status: ProjectStatus;
-}
-
-export enum ProjectStatus {
-  NA = 0,
-  NOTRECEIVED,
-  RECEIVED,
-  VERIFICATION,
-  PENDING,
-  COMPLETED,
-  EXPIRED,
-  DRAFT,
-  SIGNED,
+  status: Status;
 }
 
 export const ProjectStatusArr = [
-  { value: ProjectStatus.NA, label: 'NA' },
-  { value: ProjectStatus.NOTRECEIVED, label: 'Not Received' },
-  { value: ProjectStatus.RECEIVED, label: 'Received' },
-  { value: ProjectStatus.VERIFICATION, label: 'Verification' },
-  { value: ProjectStatus.PENDING, label: 'Pending' },
-  { value: ProjectStatus.COMPLETED, label: 'Completed' },
-  { value: ProjectStatus.EXPIRED, label: 'Expired' },
-  { value: ProjectStatus.DRAFT, label: 'Draft' },
-  { value: ProjectStatus.SIGNED, label: 'Signed' },
+  { value: Status.NA, label: 'Started' },
+  { value: Status.PENDING, label: 'In Progress' },
+  { value: Status.COMPLETED, label: 'Completed' },
 ];
 
 export enum ProjectType {

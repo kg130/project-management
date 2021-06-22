@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { QueryService } from 'src/app/services/query.service';
+import { DocumentInterface } from 'src/app/shared/_models';
 
 @Component({
   selector: 'app-summary',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryComponent implements OnInit {
 
-  constructor() { }
+  documents: DocumentInterface[] = [];
+
+  constructor(
+    private queryService: QueryService
+  ) { }
 
   ngOnInit(): void {
+    this.queryService.querySummary().subscribe((docs: DocumentInterface[]) => this.documents = docs);
   }
 
 }

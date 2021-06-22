@@ -1,14 +1,16 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Route } from "@angular/router";
 
 import { SharedModule } from "src/app/shared/shared.module";
+import { ViewProjectModule } from "../viewProject/view-project.module";
 import * as _fromComponents from "./components";
 
 
-const routes = [
-  { path: '', component: _fromComponents.HomeComponent }
+const routes: Route[] = [
+  { path: '', component: _fromComponents.HomeComponent },
+  { path: ':id', loadChildren: () => ViewProjectModule }
 ];
 
 

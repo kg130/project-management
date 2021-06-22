@@ -16,7 +16,9 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <button (click)="deleteProject(project)">Delete Project</button>
+          <button class="btn btn-primary mr-3" [routerLink]="[project._id]">View Project</button>
+          <button class="btn btn-primary mr-3" [routerLink]="['../', 'manage', project._id]">Edit Project</button>
+          <button class="btn btn-danger" (click)="deleteProject(project)">Delete Project</button>
         </div>
       </div>
     </div>

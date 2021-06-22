@@ -1,6 +1,7 @@
 <div class="p-5">
+  <h5 class="text-capitalize text-center mb-4">{{ mode }} Project {{ mode == 'edit' ? project?.name : '' }}</h5>
   <div class="row justify-content-center">
-    <form [formGroup]="project" (ngSubmit)="createProject()">
+    <form [formGroup]="projectFormGroup" (ngSubmit)="createProject()">
       <div class="form-group row">
         <label class="col-4 m-0 align-self-center">Name</label>
         <input type="text" class="form-control col-8" formControlName="name" required />
@@ -33,8 +34,8 @@
           <option *ngFor="let statKey of projectStatusArr" [value]="statKey.value">{{statKey.label}}</option>
         </select>
       </div>
-      <div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+      <div class="form-group row justify-content-end">
+        <button class="btn btn-primary" [disabled]="!projectFormGroup.valid" type="submit">Submit</button>
       </div>
     </form>
   </div>

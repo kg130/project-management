@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ProjectModel } from "../shared/_models";
-
+import { DocumentInterface, ProjectModel } from "../shared/_models";
 
 
 @Injectable({
@@ -23,5 +22,21 @@ export class MapperService {
         _id: i['_id'],
       }
     });
+  }
+
+  queryDocumentMapper(docs: any[]): DocumentInterface[] {
+    return docs.map(i => {
+      return {
+        createdby: i['documents/createdby'],
+        createddate: i['documents/createddate'],
+        expirenotify: i['documents/expirenotify'],
+        name: i['documents/name'],
+        phase: i['documents/phase'],
+        projectid: i['documents/projectid']?._id,
+        remarks: i['documents/remarks'],
+        status: i['documents/status'],
+        _id: i['_id'],
+      }
+    })
   }
 }

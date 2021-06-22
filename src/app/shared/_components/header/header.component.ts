@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   headOpts = [
     { path: '/projects', label: 'Projects' },
     { path: '/summary', label: 'Summary' },
-    { path: '/create', label: 'Create Project' },
+    { path: '/manage', label: 'Manage Project' },
   ]
 
   constructor(

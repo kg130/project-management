@@ -16,6 +16,7 @@ export class AuthService {
   dbId = environment.dbId;
 
   loggedIn: BehaviorSubject<any> = new BehaviorSubject(false);
+  user: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(
     private router: Router,
@@ -38,6 +39,10 @@ export class AuthService {
   signUp(loginObj: any): Observable<any> {
     const url = `${this.baseUrl}/fdb/${this.networkName}/${this.dbId}/pw/generate`;
     return this.apiService.post(url, loginObj, {});
+  }
+
+  fetchUserInfo(): void {
+    
   }
 
   persistToken(token: string): void {

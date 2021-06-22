@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ProjectStatusArr, ProjectTypeArr } from 'src/app/shared/_models';
+import { ProjectModel, ProjectStatusArr, ProjectTypeArr } from 'src/app/shared/_models';
 import { MutationService } from 'src/app/services/mutation.service';
 import { ToasterService } from 'src/app/services/toaster.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { QueryService } from 'src/app/services/query.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,18 +16,25 @@ import { Router } from '@angular/router';
 })
 export class CreateProjectComponent implements OnInit {
 
-  project: FormGroup = new FormGroup({});
+  project: ProjectModel = {} as ProjectModel;
+  projectFormGroup: FormGroup = new FormGroup({});
   projectStatusArr = [...ProjectStatusArr];
   projectTypeArr = [...ProjectTypeArr];
 
+  get mode(): string {
+    return this.project && this.project._id ? 'edit' : 'create';
+  }
+
   constructor(
     private mutationService: MutationService,
+    private queryService: QueryService,
     private toasterService: ToasterService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.project = new FormGroup({
+    this.projectFormGroup = new FormGroup({
       name: new FormControl(''),
       location: new FormControl(''),
       startDate: new FormControl(new Date()),
@@ -32,22 +42,59 @@ export class CreateProjectComponent implements OnInit {
       type: new FormControl(0),
       ownership: new FormControl(''),
       status: new FormControl(0),
-    })
+    });
+    this.activatedRoute.params.subscribe(params => {
+      if (params && params.id) {
+        this.queryService.queryProjectById(parseInt(params.id)).subscribe(project => {
+          this.project = project[0] || {};
+          this.projectFormGroup = new FormGroup({
+            name: new FormControl(this.project.name),
+            location: new FormControl(this.project.location),
+            startDate: new FormControl(this.formatDate(new Date(this.project.start))),
+            size: new FormControl(this.project.size),
+            type: new FormControl(this.project.type),
+            ownership: new FormControl(this.project.ownership),
+            status: new FormControl(this.project.status),
+          })
+        })
+      }
+    });
   }
 
   createProject(): void {
-    const { startDate, ...val } = this.project.value;
-    val.start = new Date(this.project.value.startDate).getTime();
+    const { startDate, ...val } = this.projectFormGroup.value;
+    val.start = new Date(startDate).getTime();
     val.type = parseInt(val.type);
     val.status = parseInt(val.status);
-    val._id = "projects";
 
-    console.log(val);
-    this.mutationService.createProject([val]).subscribe(resp => {
+    let subscription: Observable<any>;
+    if (this.mode === 'edit') {
+      val._id = this.project._id;
+      subscription = this.mutationService.manageProject([val]);
+    } else {
+      val._id = "projects";
+      subscription = this.mutationService.manageProject([val]).pipe(switchMap(resp => {
+        if (resp) {
+          return this.mutationService.createDocuments(resp?.tempids['projects$1']);
+        }
+        return [];
+      }))
+    }
+    subscription.subscribe(resp => {
       if (resp) {
-        this.toasterService.successToastr('Project Created');
+        this.toasterService.successToastr(`Project ${this.mode === 'edit' ? 'Edited' : 'Created'}`);
         this.router.navigate(['/']);
       }
     })
+  }
+
+  private formatDate(date: Date) {
+    const d = date;
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
   }
 }

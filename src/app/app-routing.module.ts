@@ -12,8 +12,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => AuthModule },
   { path: 'projects', canActivate: [AuthGuard], loadChildren: () => HomeModule },
   { path: 'summary', canActivate: [AuthGuard], loadChildren: () => SummaryModule },
-  { path: 'create', canActivate: [AuthGuard], loadChildren: () => CreateProjectModule },
-  { path: 'update', canActivate: [AuthGuard], loadChildren: () => CreateProjectModule },
+  { path: 'manage', canActivate: [AuthGuard], loadChildren: () => CreateProjectModule }
 ];
 
 @NgModule({
