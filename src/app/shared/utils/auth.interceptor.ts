@@ -27,6 +27,12 @@ export class AuthInterceptor implements HttpInterceptor {
           return this.errorHandler(error);
         })
       );
+    } else if (req.url.includes('pw/login')) {
+      return next.handle(req).pipe(
+        catchError((error: HttpErrorResponse) => {
+          return this.errorHandler(error);
+        })
+      );
     } else {
       return throwError('Not authorized');
     }
