@@ -36,9 +36,11 @@ export const deleteProjectMutation = (projectId: number | string) => {
   }]
 }
 
-export const deleteDocumentMutation = (documentId: number | string) => {
-  return [{
-    _id: documentId,
-    _action: "delete"
-  }]
+export const deleteDocumentMutation = (documentIds: (number | string)[]) => {
+  return documentIds.map((documentId: number | string) => {
+    return {
+      _id: documentId,
+      _action: "delete"
+    }
+  })
 }

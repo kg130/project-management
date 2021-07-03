@@ -3,10 +3,10 @@
     <div class="projectCont py-3 px-4" *ngFor="let project of projects">
       <div class="row">
         <div class="col-8">
-          <h5 class="m-0 cursor-pointer" [routerLink]="[project._id]">
+          <h4 class="m-0 cursor-pointer" [routerLink]="[project._id]">
             {{project.name}}
             <span style="font-size: 14px;">({{project.size}} Katha) ({{project.type | projectType}} project) - {{project.ownership}}</span>
-          </h5>
+          </h4>
           <div class="details">
             <div>
               <i class="las la-map-marker"></i>
@@ -21,14 +21,14 @@
         <div class="col-4 align-self-center text-right">
           <div>
             <!-- {{project.status | projectStatus}} -->
-            <button class="btn primary-color p-1 mr-2" [routerLink]="[project._id]">
-              <i style="font-size: 18px;" class="las la-eye"></i>
+            <button class="btn primary-color p-1 mr-3" [routerLink]="[project._id]">
+              <i style="font-size: 19px;" class="las la-eye"></i>
             </button>
             <button class="btn primary-color p-1 mr-2" [routerLink]="['../', 'manage', project._id]">
-              <i style="font-size: 18px;" class="las la-pencil-alt"></i>
+              <i style="font-size: 19px;" class="las la-pencil-alt"></i>
             </button>
             <button class="btn secondary-color p-1" (click)="deleteProject(project)">
-              <i style="font-size: 18px;" class="las la-trash-alt"></i>
+              <i style="font-size: 19px;" class="las la-trash-alt"></i>
             </button>
           </div>
         </div>

@@ -1,0 +1,28 @@
+<div class="p-2">
+  <div class="m-0">
+    {{doc.name}}
+    <span style="font-size: 14px;">({{doc.status | projectStatus}})</span>
+    <div style="float: right;">
+      <button class="btn primary-color p-1 mr-2" (click)="editDocument(doc)">
+        <i style="font-size: 19px;" class="las la-pencil-alt"></i>
+      </button>
+      <button class="btn secondary-color p-1" (click)="deleteDocument(doc)">
+        <i style="font-size: 19px;" class="las la-trash-alt"></i>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="doc.remarks">Remarks: {{doc.remarks}}</div>
+  <div *ngIf="doc.signeddate">Signed Date: {{doc.signeddate | date}}</div>
+  <div *ngIf="doc.signedby">Signed By: {{doc.signedby}}</div>
+  <div *ngIf="doc.expiredate">Expiry Date: {{doc.expiredate | date}}</div>
+  <div class="mt-2" *ngIf="doc.childDocs?.length">
+    <div class="pl-4 mb-0" *ngFor="let childDoc of doc.childDocs; let ind = index">
+      <app-document-details
+        [doc]="childDoc"
+        (onEdit)="editDocument($event)"
+        (onDelete)="deleteDocument($event)"
+      ></app-document-details>
+      <hr *ngIf="doc.childDocs && doc.childDocs.length - 1 !== ind" class="m-0">
+    </div>
+  </div>
+</div>

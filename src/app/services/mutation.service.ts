@@ -33,15 +33,14 @@ export class MutationService {
     return this.apiService.post(this.url, docObj, {});
   }
 
-  deleteDocument(docId: number | string): Observable<any> {
-    const transactObj = deleteDocumentMutation(docId);
+  deleteDocument(docIds: (number | string)[]): Observable<any> {
+    const transactObj = deleteDocumentMutation(docIds);
     return this.apiService.post(this.url, transactObj, {});
   }
 
   deleteProject(projectId: number): Observable<any> {
     return this.queryService.queryDocumentsByProjectId(projectId).pipe(switchMap(value => {
-      const transactObj = deleteProjectMutation(projectId);
-      value.map(doc => doc._id).forEach(id => transactObj.push(...deleteDocumentMutation(id)));
+      const transactObj = [...deleteProjectMutation(projectId), ...deleteDocumentMutation(value.map(doc => doc._id))];
       return this.apiService.post(this.url, transactObj, {});
     }))
   }

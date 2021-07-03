@@ -17,6 +17,7 @@ export interface DocumentInterface {
   expiredate?: number;
   signeddate?: number;
   signedby?: string;
+  childDocs?: DocumentInterface[];
   createdby: string;
   projectid: number;
   createddate: number;

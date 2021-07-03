@@ -9,8 +9,10 @@ import * as _fromPipes from './_pipes';
 @NgModule({
   declarations: [
     _fromComponents.HeaderComponent,
+    _fromComponents.DocumentDetailsComponent,
+
     _fromPipes.ProjectStatusPipe,
-    _fromPipes.ProjectTypePipe
+    _fromPipes.ProjectTypePipe,
   ],
   imports: [
     CommonModule,
@@ -18,6 +20,8 @@ import * as _fromPipes from './_pipes';
   ],
   exports: [
     _fromComponents.HeaderComponent,
+    _fromComponents.DocumentDetailsComponent,
+
     _fromPipes.ProjectStatusPipe,
     _fromPipes.ProjectTypePipe
   ]

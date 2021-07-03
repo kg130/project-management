@@ -2,41 +2,65 @@
   <div>
     <div class="projectCont p-3">
       <div class="row">
-        <div class="col-4">Name: {{project.name}}</div>
-        <div class="col-4">Location: {{project.location}}</div>
-        <div class="col-4">Size: {{project.size}} Katha</div>
-      </div>
-      <div class="row">
-        <div class="col-4">Start Date: {{project.start | date}}</div>
-        <div class="col-4">Status: {{project.status | projectStatus}}</div>
-        <div class="col-4">Type: {{project.type | projectType}}</div>
-      </div>
-      <div class="row">
-        <div class="col-6">Ownership: {{project.ownership}}</div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-primary mr-3" [routerLink]="['../../', 'manage', project._id]">Add Document</button>
-          <button class="btn btn-primary mr-3" [routerLink]="['../../', 'manage', project._id]">Edit Project</button>
-          <button class="btn btn-danger" (click)="deleteProject(project)">Delete Project</button>
+        <div class="col-8">
+          <h4 class="m-0 cursor-pointer" [routerLink]="[project._id]">
+            {{project.name}}
+            <span style="font-size: 14px;">({{project.type | projectType}} project) - {{project.ownership}}</span>
+          </h4>
+          <div class="details">
+            <div>
+              <i class="las la-expand-arrows-alt"></i>
+              {{project.size}} Katha
+            </div>
+            <div>
+              <i class="las la-map-marker"></i>
+              {{project.location}}
+            </div>
+            <div>
+              <i class="las la-rocket"></i>
+              {{project.start | date}}
+            </div>
+          </div>
+        </div>
+        <div class="col-4 align-self-center text-right">
+          <div>
+            <!-- {{project.status | projectStatus}} -->
+            <button class="btn primary-color p-1 mr-3" [routerLink]="[project._id]">
+              <i style="font-size: 19px;" class="align-text-top las la-plus"></i>
+              Add Document
+            </button>
+            <button class="btn primary-color p-1 mr-2" [routerLink]="['../', 'manage', project._id]">
+              <i style="font-size: 19px;" class="las la-pencil-alt"></i>
+            </button>
+            <button class="btn secondary-color p-1" (click)="deleteProject(project)">
+              <i style="font-size: 19px;" class="las la-trash-alt"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="p-3" *ngFor="let doc of documents">
-      <div class="row">
-        <div class="col-4">Name: {{doc.name}}</div>
-        <div class="col-4">Status: {{doc.status | projectStatus}}</div>
-        <div class="col-4">Remarks: {{doc.remarks}}</div>
-      </div>
-      <div class="row">
-        <div class="col-4">Signed Date: {{doc.signeddate | date}}</div>
-        <div class="col-4">Signed By: {{doc.signedby}}</div>
-        <div class="col-4">Expiry Date: {{doc.expiredate | date}}</div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-primary mr-3" (click)="editDocument(doc)">Edit Document</button>
-          <button class="btn btn-danger" (click)="deleteDocument(doc)">Delete Document</button>
+    <div class="mt-3">
+      <div *ngFor="let doc of documents; let ind=index">
+        <div 
+          class="px-3 my-3 phaseLabel"
+          (click)="phaseClick(doc.phase)"
+          *ngIf="ind == 0 || doc.phase !== documents[ind - 1]?.phase"
+        >
+          <label class="cursor-pointer">Phase {{doc.phase}}</label>
+          <button class="btn">
+            <i *ngIf="expanded.get(doc.phase)" class="las la-chevron-circle-down"></i>
+            <i *ngIf="!expanded.get(doc.phase)" class="las la-chevron-circle-right"></i>
+          </button>
+          <hr>
+        </div>
+        <div class="px-3" *ngIf="expanded.get(doc.phase)">
+          <div class="border" [ngClass]="{'border-bottom-0': !(documents.length - 1 === ind || doc.phase !== documents[ind + 1]?.phase)}">
+            <app-document-details
+              [doc]="doc"
+              (onEdit)="editDocument($event)"
+              (onDelete)="deleteDocument($event)"
+            ></app-document-details>
+          </div>
         </div>
       </div>
     </div>

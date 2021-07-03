@@ -13,7 +13,8 @@ export const fetchDocumentsByProjectId = (projectId: number) => {
   return {
     select: ["*"],
     from: "documents",
-    where: `documents/projectid = ${projectId}`
+    where: `documents/projectid = ${projectId}`,
+    opts: { orderBy: "documents/phase" }
   }
 }
 

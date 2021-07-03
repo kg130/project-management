@@ -32,3 +32,8 @@ body {
 .secondary-color {
   color: var(--secondary-color) !important;
 }
+
+.btn {
+  outline: none !important;
+  box-shadow: none !important;
+}

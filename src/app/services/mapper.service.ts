@@ -33,6 +33,7 @@ export class MapperService {
         name: i['documents/name'],
         phase: i['documents/phase'],
         projectid: i['documents/projectid']?._id,
+        parentid: i['documents/parentid']?._id,
         remarks: i['documents/remarks'],
         status: i['documents/status'],
         _id: i['_id'],
