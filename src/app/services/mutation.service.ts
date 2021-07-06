@@ -3,9 +3,11 @@ import { Observable } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { DocumentInterface, ProjectModel } from "../shared/_models";
-import { createDocumentsMutation, deleteProjectMutation, deleteDocumentMutation } from "../shared/_transactions";
 import { ApiService } from "./api.service";
 import { QueryService } from "./query.service";
+import { 
+  createDocumentsMutation, createDocumentMutation, deleteProjectMutation, deleteDocumentMutation 
+} from "../shared/_transactions";
 
 
 @Injectable({
@@ -29,8 +31,8 @@ export class MutationService {
     return this.apiService.post(this.url, createDocumentsMutation(projectId), {});
   }
 
-  manageDocument(docObj: DocumentInterface[]): Observable<any> {
-    return this.apiService.post(this.url, docObj, {});
+  manageDocument(docObj: DocumentInterface): Observable<any> {
+    return this.apiService.post(this.url, createDocumentMutation(docObj), {});
   }
 
   deleteDocument(docIds: (number | string)[]): Observable<any> {

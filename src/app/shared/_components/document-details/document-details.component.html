@@ -1,12 +1,12 @@
-<div class="p-2">
+<div class="py-2" [ngClass]="{'px-2': !child}">
   <div class="m-0">
     {{doc.name}}
-    <span style="font-size: 14px;">({{doc.status | projectStatus}})</span>
+    <span style="font-size: 14px;">({{doc.status | projectStatus: 'document'}})</span>
     <div style="float: right;">
-      <button class="btn primary-color p-1 mr-2" (click)="editDocument(doc)">
+      <button *ngIf="actionAllowed" class="btn primary-color p-1 mr-2" (click)="editDocument(doc)">
         <i style="font-size: 19px;" class="las la-pencil-alt"></i>
       </button>
-      <button class="btn secondary-color p-1" (click)="deleteDocument(doc)">
+      <button *ngIf="actionAllowed" class="btn secondary-color p-1" (click)="deleteDocument(doc)">
         <i style="font-size: 19px;" class="las la-trash-alt"></i>
       </button>
     </div>
@@ -19,10 +19,11 @@
     <div class="pl-4 mb-0" *ngFor="let childDoc of doc.childDocs; let ind = index">
       <app-document-details
         [doc]="childDoc"
+        [child]="true"
         (onEdit)="editDocument($event)"
         (onDelete)="deleteDocument($event)"
       ></app-document-details>
-      <hr *ngIf="doc.childDocs && doc.childDocs.length - 1 !== ind" class="m-0">
+      <hr *ngIf="doc.childDocs && doc.childDocs.length - 1 !== ind" class="m-0" style="margin-right: -0.5rem !important;">
     </div>
   </div>
 </div>

@@ -1,0 +1,61 @@
+<div class="py-4 px-3">
+  <h5 class="text-capitalize text-center mb-5">{{ mode }} Document {{ mode == 'edit' ? doc?.name : '' }}</h5>
+  <div>
+    <form [formGroup]="documentFormGroup" (ngSubmit)="manageDocument()">
+      <div class="row mb-3">
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Name</label>
+          <input type="text" class="form-control" formControlName="name" required />
+        </div>
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Status</label>
+          <select class="form-control" formControlName="status" required>
+            <option *ngFor="let statKey of documentStatusArr" [value]="statKey.value">{{statKey.label}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Phase</label>
+          <select class="form-control" formControlName="phase" required>
+            <option *ngFor="let val of phaseArr" [value]="val">{{val}}</option>
+          </select>
+        </div>
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Parent Document</label>
+          <select class="form-control " formControlName="parentid">
+            <option [value]="''">Parent Document</option>
+            <option *ngFor="let existingDoc of parentDocs" [value]="existingDoc._id">{{existingDoc.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Signed Date</label>
+          <input type="date" class="form-control " formControlName="signedDate" />
+        </div>
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Signed By</label>
+          <input type="text" class="form-control " formControlName="signedby" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Expire Date</label>
+          <input type="date" class="form-control " formControlName="expireDate" />
+        </div>
+        <div class="col-6 form-group position-relative">
+          <label class="custom-label m-0 align-self-center">Expire Notification (Days)</label>
+          <input type="number" class="form-control " formControlName="expirenotify" />
+        </div>
+      </div>
+      <div class="form-group position-relative">
+        <label class="custom-label m-0 align-self-center">Remarks</label>
+        <input type="text" class="form-control" formControlName="remarks" />
+      </div>
+      <div class="form-group text-right">
+        <button class="btn btn-primary" [disabled]="!documentFormGroup.valid" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

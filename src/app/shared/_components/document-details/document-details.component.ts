@@ -9,6 +9,8 @@ import { DocumentInterface } from '../../_models';
 export class DocumentDetailsComponent implements OnInit {
 
   @Input() doc!: DocumentInterface;
+  @Input() child = false;
+  @Input() actionAllowed = true;
   @Output() onEdit: EventEmitter<DocumentInterface> = new EventEmitter();
   @Output() onDelete: EventEmitter<DocumentInterface> = new EventEmitter();
 

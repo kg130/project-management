@@ -25,7 +25,7 @@
         <div class="col-4 align-self-center text-right">
           <div>
             <!-- {{project.status | projectStatus}} -->
-            <button class="btn primary-color p-1 mr-3" [routerLink]="[project._id]">
+            <button class="btn primary-color p-1 mr-3" (click)="addDocument()">
               <i style="font-size: 19px;" class="align-text-top las la-plus"></i>
               Add Document
             </button>
@@ -39,19 +39,20 @@
         </div>
       </div>
     </div>
-    <div class="mt-3">
+    <div class="mt-2">
       <div *ngFor="let doc of documents; let ind=index">
         <div 
-          class="px-3 my-3 phaseLabel"
+          class="px-3 mt-4 phaseLabel"
           (click)="phaseClick(doc.phase)"
           *ngIf="ind == 0 || doc.phase !== documents[ind - 1]?.phase"
+          [ngClass]="{'mb-3': !expanded.get(doc.phase)}"
         >
-          <label class="cursor-pointer">Phase {{doc.phase}}</label>
-          <button class="btn">
+          <label class="m-0 cursor-pointer">Phase {{doc.phase}}</label>
+          <button class="btn py-0">
             <i *ngIf="expanded.get(doc.phase)" class="las la-chevron-circle-down"></i>
             <i *ngIf="!expanded.get(doc.phase)" class="las la-chevron-circle-right"></i>
           </button>
-          <hr>
+          <hr *ngIf="!expanded.get(doc.phase)">
         </div>
         <div class="px-3" *ngIf="expanded.get(doc.phase)">
           <div class="border" [ngClass]="{'border-bottom-0': !(documents.length - 1 === ind || doc.phase !== documents[ind + 1]?.phase)}">
