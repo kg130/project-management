@@ -11,6 +11,7 @@ export class DocumentDetailsComponent implements OnInit {
   @Input() doc!: DocumentInterface;
   @Input() child = false;
   @Input() actionAllowed = true;
+  @Output() onClick: EventEmitter<boolean> = new EventEmitter();
   @Output() onEdit: EventEmitter<DocumentInterface> = new EventEmitter();
   @Output() onDelete: EventEmitter<DocumentInterface> = new EventEmitter();
 
@@ -18,6 +19,10 @@ export class DocumentDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  clickDocument(): void {
+    this.onClick.emit(true);
   }
 
   editDocument(doc: DocumentInterface): void {

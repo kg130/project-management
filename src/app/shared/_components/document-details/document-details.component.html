@@ -1,7 +1,7 @@
 <div class="py-2" [ngClass]="{'px-2': !child}">
-  <div class="m-0">
-    {{doc.name}}
-    <span style="font-size: 14px;">({{doc.status | projectStatus: 'document'}})</span>
+  <div class="m-0 cursor-pointer">
+    <b (click)="clickDocument()">{{doc.name}} </b>
+    <span style="font-size: 14px;" [ngStyle]="{'color': doc.status | statusColor}">({{doc.status | projectStatus: 'document'}})</span>
     <div style="float: right;">
       <button *ngIf="actionAllowed" class="btn primary-color p-1 mr-2" (click)="editDocument(doc)">
         <i style="font-size: 19px;" class="las la-pencil-alt"></i>
@@ -11,15 +11,25 @@
       </button>
     </div>
   </div>
-  <div *ngIf="doc.remarks">Remarks: {{doc.remarks}}</div>
-  <div *ngIf="doc.signeddate">Signed Date: {{doc.signeddate | date}}</div>
-  <div *ngIf="doc.signedby">Signed By: {{doc.signedby}}</div>
-  <div *ngIf="doc.expiredate">Expiry Date: {{doc.expiredate | date}}</div>
+  <div style="font-size: 14px;" *ngIf="doc.remarks">
+    Remarks: <b>{{doc.remarks}}</b>
+  </div>
+  <div style="font-size: 14px;" *ngIf="doc.project">
+    Project: <b>{{doc.project.name}}</b>
+  </div>
+  <div style="font-size: 14px;" *ngIf="doc.signedby">
+    Signed: <b>{{doc.signedby}} - {{doc.signeddate | date}}</b>
+  </div>
+  <div style="font-size: 14px;" *ngIf="doc.expiredate">
+    Expiry Date: 
+    <b>{{doc.expiredate | date}} - ({{doc.expirenotify | expireNotify}} days)</b>
+  </div>
   <div class="mt-2" *ngIf="doc.childDocs?.length">
     <div class="pl-4 mb-0" *ngFor="let childDoc of doc.childDocs; let ind = index">
       <app-document-details
         [doc]="childDoc"
         [child]="true"
+        [actionAllowed]="actionAllowed"
         (onEdit)="editDocument($event)"
         (onDelete)="deleteDocument($event)"
       ></app-document-details>

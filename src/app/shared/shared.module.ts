@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as _fromComponents from './_components';
 import * as _fromPipes from './_pipes';
@@ -15,6 +15,8 @@ import * as _fromPipes from './_pipes';
 
     _fromPipes.ProjectStatusPipe,
     _fromPipes.ProjectTypePipe,
+    _fromPipes.StatusColorPipe,
+    _fromPipes.ExpireNotifyPipe,
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,9 @@ import * as _fromPipes from './_pipes';
     _fromComponents.ManageDocumentComponent,
 
     _fromPipes.ProjectStatusPipe,
-    _fromPipes.ProjectTypePipe
+    _fromPipes.ProjectTypePipe,
+    _fromPipes.StatusColorPipe,
+    _fromPipes.ExpireNotifyPipe,
   ]
 })
 export class SharedModule {}

@@ -1,13 +1,13 @@
 export enum Status {
   NA = 0,
+  DRAFT,
   NOTRECEIVED,
   RECEIVED,
-  VERIFICATION,
   PENDING,
+  VERIFICATION,
+  SIGNED,
   COMPLETED,
   EXPIRED,
-  DRAFT,
-  SIGNED,
 }
 
 export enum ProjectPhase {

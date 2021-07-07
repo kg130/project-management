@@ -24,9 +24,9 @@ export class MapperService {
     });
   }
 
-  queryDocumentMapper(docs: any[]): DocumentInterface[] {
+  queryDocumentMapper(docs: any[], summary = false): DocumentInterface[] {
     return docs.map(i => {
-      return {
+      const data: DocumentInterface = {
         createdby: i['documents/createdby'],
         createddate: i['documents/createddate'],
         expirenotify: i['documents/expirenotify'],
@@ -41,6 +41,11 @@ export class MapperService {
         status: i['documents/status'],
         _id: i['_id'],
       }
+
+      if (summary) {
+        data.project = this.queryProjectMapper([i['project']])[0]
+      }
+      return data;
     })
   }
 }

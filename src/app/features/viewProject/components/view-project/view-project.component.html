@@ -5,6 +5,12 @@
         <div class="col-8">
           <h4 class="m-0 cursor-pointer" [routerLink]="[project._id]">
             {{project.name}}
+            <span
+              class="statusSpan mr-2"
+              [ngStyle]="{'background-color': project.status | statusColor}"
+              placement="top"
+              [ngbTooltip]="project.status | projectStatus"
+            ></span>
             <span style="font-size: 14px;">({{project.type | projectType}} project) - {{project.ownership}}</span>
           </h4>
           <div class="details">

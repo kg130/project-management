@@ -31,7 +31,7 @@ export class QueryService {
   querySummary(): Observable<DocumentInterface[]> {
     const query = fetchSummary();
     return this.apiService.post(this.url, query, {}).pipe(map((resp: any[]) => {
-      return this.mapperService.queryDocumentMapper(resp);
+      return this.mapperService.queryDocumentMapper(resp, true);
     }));
   }
 

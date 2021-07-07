@@ -5,6 +5,12 @@
         <div class="col-8">
           <h4 class="m-0 cursor-pointer" [routerLink]="[project._id]">
             {{project.name}}
+            <span
+              class="statusSpan mr-2"
+              [ngStyle]="{'background-color': project.status | statusColor}"
+              placement="top"
+              [ngbTooltip]="project.status | projectStatus"
+            ></span>
             <span style="font-size: 14px;">({{project.size}} Katha) ({{project.type | projectType}} project) - {{project.ownership}}</span>
           </h4>
           <div class="details">
@@ -20,7 +26,6 @@
         </div>
         <div class="col-4 align-self-center text-right">
           <div>
-            <!-- {{project.status | projectStatus}} -->
             <button class="btn primary-color p-1 mr-3" [routerLink]="[project._id]">
               <i style="font-size: 19px;" class="las la-eye"></i>
             </button>

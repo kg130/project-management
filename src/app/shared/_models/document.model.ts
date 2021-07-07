@@ -1,4 +1,5 @@
 import { Status, ProjectPhase } from './enums';
+import { ProjectModel } from './project.model';
 
 
 export const DocumentStatusArr = [
@@ -26,6 +27,7 @@ export interface DocumentInterface {
   phase: ProjectPhase;
   remarks?: string;
   parentid?: string;
+  project?: ProjectModel;
   name: string;
   _id: number | string;
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/services/modal.service';
 import { MutationService } from 'src/app/services/mutation.service';
 import { QueryService } from 'src/app/services/query.service';
-import { ManageDocumentComponent } from 'src/app/shared/_components';
 import { DocumentInterface, ProjectModel } from 'src/app/shared/_models';
+
 
 @Component({
   selector: 'app-view-project',
@@ -22,7 +22,7 @@ export class ViewProjectComponent implements OnInit {
     private router: Router,
     private queryService: QueryService,
     private mutationService: MutationService,
-    private ngbService: NgbModal
+    private modalService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +33,7 @@ export class ViewProjectComponent implements OnInit {
         this.fetchDocuments(id);
       }
     });
+    this.expanded.set(parseInt(this.activatedRoute.snapshot.queryParams?.phase) || 0, true);
   }
 
   fetchDocuments(projectId: number) {
@@ -58,34 +59,29 @@ export class ViewProjectComponent implements OnInit {
   }
 
   addDocument(): void {
-    const manageDocumentInst = this.ngbService.open(ManageDocumentComponent, {
-      size: 'lg'
-    });
-
-    (manageDocumentInst.componentInstance as ManageDocumentComponent).existingDocs = this.documents;
-    (manageDocumentInst.componentInstance as ManageDocumentComponent).projectId = this.project._id;
-
-    manageDocumentInst.result.then((val) => {
-      if (val) {
-        this.fetchDocuments(this.project._id);
+    this.modalService.openDocumentModal(
+      {} as DocumentInterface,
+      this.project._id,
+      this.documents,
+      (val) => {
+        if (val) {
+          this.fetchDocuments(this.project._id);
+        }
       }
-    })
+    )
   }
 
   editDocument(doc: DocumentInterface): void {
-    const manageDocumentInst = this.ngbService.open(ManageDocumentComponent, {
-      size: 'lg'
-    });
-
-    (manageDocumentInst.componentInstance as ManageDocumentComponent).existingDocs = this.documents;
-    (manageDocumentInst.componentInstance as ManageDocumentComponent).projectId = this.project._id;
-    (manageDocumentInst.componentInstance as ManageDocumentComponent).doc = doc;
-
-    manageDocumentInst.result.then((val) => {
-      if (val) {
-        this.fetchDocuments(this.project._id);
+    this.modalService.openDocumentModal(
+      doc,
+      this.project._id,
+      this.documents.filter(i => i._id !== doc._id),
+      (val) => {
+        if (val) {
+          this.fetchDocuments(this.project._id);
+        }
       }
-    })
+    )
   }
 
   deleteDocument(doc: DocumentInterface): void {
@@ -106,6 +102,14 @@ export class ViewProjectComponent implements OnInit {
   phaseClick(phaseNum: number): void {
     if (!this.expanded.get(phaseNum)) {
       this.expanded.set(phaseNum, true);
+      this.router.navigate(
+        [], {
+          relativeTo: this.activatedRoute,
+          queryParams: {
+            phase: phaseNum
+          }, 
+        }
+      );
     } else {
       this.expanded.set(phaseNum, false);
     }
