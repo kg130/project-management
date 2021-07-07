@@ -1,7 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import * as _fromComponents from './_components';
 import * as _fromPipes from './_pipes';
@@ -23,6 +24,7 @@ import * as _fromPipes from './_pipes';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    SweetAlert2Module,
   ],
   exports: [
     _fromComponents.HeaderComponent,

@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule, Route } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { SharedModule } from "src/app/shared/shared.module";
 import * as _fromComponents from './components';
@@ -18,7 +19,8 @@ const routes: Route[] = [
     CommonModule,
     SharedModule,
     NgbModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SweetAlert2Module
   ]
 })
 export class ViewProjectModule {}

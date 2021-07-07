@@ -6,7 +6,7 @@
       <button *ngIf="actionAllowed" class="btn primary-color p-1 mr-2" (click)="editDocument(doc)">
         <i style="font-size: 19px;" class="las la-pencil-alt"></i>
       </button>
-      <button *ngIf="actionAllowed" class="btn secondary-color p-1" (click)="deleteDocument(doc)">
+      <button *ngIf="actionAllowed" class="btn secondary-color p-1" [swal]="deleteSwal">
         <i style="font-size: 19px;" class="las la-trash-alt"></i>
       </button>
     </div>
@@ -37,3 +37,13 @@
     </div>
   </div>
 </div>
+
+<swal
+  #deleteSwal
+  title="Delete {{ doc.name }}?"
+  text="This cannot be undone"
+  [showCancelButton]="true"
+  confirmButtonColor="var(--primary-color)"
+  cancelButtonColor="var(--secondary-color)"
+  (confirm)="deleteDocument(doc)">
+</swal>

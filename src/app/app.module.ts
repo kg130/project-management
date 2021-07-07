@@ -7,8 +7,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './shared/utils/auth.interceptor';
+
+import { ToastrModule } from 'ngx-toastr';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { AuthInterceptor } from './shared/utils/auth.interceptor';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SweetAlert2Module.forRoot(),
   ],
   providers: [
     {
