@@ -75,7 +75,11 @@ export class CreateProjectComponent implements OnInit {
       val._id = "projects";
       subscription = this.mutationService.manageProject([val]).pipe(switchMap(resp => {
         if (resp) {
-          return this.mutationService.createDocuments(resp?.tempids['projects']);
+          let projectId = resp?.tempids['projects'];
+          if (resp?.tempids['projects']?.length) {
+            projectId = resp?.tempids['projects'][0]
+          }
+          return this.mutationService.createDocuments(projectId);
         }
         return [];
       }))
