@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
@@ -23,6 +24,7 @@ import * as _fromPipes from './_pipes';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     NgbModule,
     SweetAlert2Module,
   ],

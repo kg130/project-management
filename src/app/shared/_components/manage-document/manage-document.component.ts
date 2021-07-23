@@ -56,7 +56,7 @@ export class ManageDocumentComponent implements OnInit {
       expireDate: new FormControl(this.formatDate(this.doc.expiredate ? new Date(this.doc.expiredate): undefined)),
       signedDate: new FormControl(this.formatDate(this.doc.signeddate ? new Date(this.doc.signeddate): undefined)),
       signedby: new FormControl(this.doc.signedby),
-      expirenotify: new FormControl(this.doc.expirenotify || 0 / (1000 * 3600 * 24)),
+      expirenotify: new FormControl((this.doc.expirenotify || 0) / (1000 * 3600 * 24)),
       phase: new FormControl(this.doc.phase),
       remarks: new FormControl(this.doc.remarks),
       parentid: new FormControl(this.doc.parentid),

@@ -11,7 +11,7 @@
     <div class="px-4 d-flex flex-row justify-content-between" style="width: calc(100% - 92px);" *ngIf="loggedIn">
       <div class="align-self-center">
         <h6 class="m-0 pr-4 pl-1 d-inline-block" *ngFor="let head of headOpts">
-          <a class="custom-link" [ngClass]="{'selected-route': selectedRoute(head)}" [href]="head.path">{{head.label}}</a>
+          <a class="custom-link" [ngClass]="{'selected-route': selectedRoute(head)}" [routerLink]="head.path">{{head.label}}</a>
         </h6>
       </div>
       <div class="align-self-center">

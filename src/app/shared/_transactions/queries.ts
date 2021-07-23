@@ -11,10 +11,17 @@ export const fetchProjectById = (projectId: number) => {
 
 export const fetchDocumentsByProjectId = (projectId: number) => {
   return {
-    select: ["*"],
-    from: "documents",
-    where: `documents/projectid = ${projectId}`,
-    opts: { orderBy: "documents/phase" }
+    "select": {"?documents": ["*", {"projectid": ["*", {"_as": "project"}]}]},
+    "where": [
+      ["?documents", "documents/phase", "?phase"],
+      {"optional": [
+        ["?documents", "documents/projectid", "?projectid"]
+      ]},
+      {"filter": [
+        `(or (= ${projectId} ?projectid) (nil? ?projectid))`
+      ]}
+    ],
+    opts: { orderBy: "?phase" }
   }
 }
 
