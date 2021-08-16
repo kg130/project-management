@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080',
+  baseUrl: `${window.location.protocol}//${window.location.hostname}:8090`,
   networkName: 'prime',
   dbId: 'projects'
 };
