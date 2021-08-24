@@ -1,0 +1,115 @@
+[
+  {
+    "_id":"_predicate",
+    "name": "projects/name",
+    "type": "string",
+    "fullText": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "projects/location",
+    "type": "string",
+    "fullText": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "projects/start",
+    "type": "instant",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "projects/size",
+    "type": "int",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "projects/type",
+    "type": "int",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "projects/ownership",
+    "type": "string"
+  },
+  {
+    "_id":"_predicate",
+    "name": "projects/status",
+    "type": "int",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/name",
+    "type": "string",
+    "fullText": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/remarks",
+    "type": "string",
+    "fullText": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/phase",
+    "type": "int",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/expirenotify",
+    "type": "int",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/status",
+    "type": "int",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/createddate",
+    "type": "instant",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/parentid",
+    "type": "ref",
+    "restrictCollection": "documents"
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/projectid",
+    "type": "ref",
+    "restrictCollection": "projects"
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/createdby",
+    "type": "string",
+    "fullText": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/signedby",
+    "type": "string",
+    "fullText": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/signeddate",
+    "type": "instant",
+    "index": true
+  },
+  {
+    "_id":"_predicate",
+    "name": "documents/expiredate",
+    "type": "instant",
+    "index": true
+  }
+]

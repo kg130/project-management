@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "_user",
+    "roles": [],
+    "username": "primeDev",
+    "auth": []
+  },
+  {
+    "_id":"_collection",
+    "name": "projects",
+    "doc": "projects in prime"
+  },
+  {
+    "_id":"_collection",
+    "name": "documents",
+    "doc": "documents collection"
+  }
+]
