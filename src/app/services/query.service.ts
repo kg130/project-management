@@ -35,6 +35,13 @@ export class QueryService {
     }));
   }
 
+  queryDocumentById(projectId: number): Observable<DocumentInterface[]> {
+    const query = fetchProjectById(projectId);
+    return this.apiService.post(this.url, query, {}).pipe(map((resp: any[]) => {
+      return this.mapperService.queryDocumentMapper(resp);
+    }));
+  }
+
   queryProjectById(projectId: number): Observable<ProjectModel[]> {
     const query = fetchProjectById(projectId);
     return this.apiService.post(this.url, query, {}).pipe(map((resp: any[]) => {

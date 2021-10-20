@@ -32,10 +32,11 @@ export class SummaryComponent implements OnInit {
       this.documents = docs.filter(doc => !doc.parentid);
       docs.forEach(doc => {
         if (!!doc.parentid) {
-          const parentDocument = this.documents.find(parentDoc => parentDoc._id === doc.parentid);
-          if (parentDocument) {
-            parentDocument.childDocs = [...parentDocument.childDocs || [], doc];
-          }
+          this.queryService.queryDocumentById(parseInt(doc.parentid)).subscribe((parentDocs: DocumentInterface[]) => {
+            const existingDoc = this.documents.filter(a => a.parentid === doc.parentid)[0]
+            parentDocs[0].childDocs = [...existingDoc?.childDocs || [], doc];
+            this.documents = [...this.documents, ...parentDocs];
+          })
         }
       })
     });

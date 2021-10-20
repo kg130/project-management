@@ -35,7 +35,7 @@ export const fetchSummary = () => {
         ["?documents", "documents/expiredate", "?expiredate"]
       ]},
       {"filter": [
-        "(or (not= 7 ?status) (and (= 7 ?status) (not= 0 ?expirenotify) (bound ?expiredate) (> (now) (- ?expiredate ?expirenotify))))"
+        "(or (and (not= 7 ?status) (not= 1 ?status)) (and (= 7 ?status) (not= 0 ?expirenotify) (bound ?expiredate) (> (now) (- ?expiredate ?expirenotify))))"
       ]}
     ]
   }
