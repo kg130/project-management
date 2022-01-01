@@ -27,7 +27,11 @@ export const fetchDocumentsByProjectId = (projectId: number) => {
 
 export const fetchSummary = () => {
   return {
-    "select": {"?documents": ["*", {"projectid": ["*", {"_as": "project"}]}]},
+    "select": {"?documents": [
+      "*", 
+      {"projectid": ["*", {"_as": "project"}]},
+      {"parentid": ["*", {"_as": "parentDoc"}]},
+    ]},
     "where": [
       ["?documents", "documents/status", "?status"],
       ["?documents", "documents/expirenotify", "?expirenotify"],

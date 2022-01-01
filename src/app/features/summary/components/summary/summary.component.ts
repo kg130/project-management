@@ -4,8 +4,12 @@ import { Observable } from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 import { MutationService } from 'src/app/services/mutation.service';
 import { QueryService } from 'src/app/services/query.service';
-import { DocumentInterface } from 'src/app/shared/_models';
+import { DocumentInterface, ProjectModel } from 'src/app/shared/_models';
 
+
+interface ExtendedProjectModel extends ProjectModel {
+  docs: DocumentInterface[];
+}
 
 @Component({
   selector: 'app-summary',
@@ -15,6 +19,8 @@ import { DocumentInterface } from 'src/app/shared/_models';
 export class SummaryComponent implements OnInit {
 
   documents: DocumentInterface[] = [];
+  projectList: ExtendedProjectModel[] = [];
+  expanded: Map<any, boolean> = new Map();
 
   constructor(
     private queryService: QueryService,
@@ -29,16 +35,23 @@ export class SummaryComponent implements OnInit {
 
   fetchSummary(): void {
     this.queryService.querySummary().subscribe((docs: DocumentInterface[]) => {
-      this.documents = docs.filter(doc => !doc.parentid);
-      docs.forEach(doc => {
-        if (!!doc.parentid) {
-          this.queryService.queryDocumentById(parseInt(doc.parentid)).subscribe((parentDocs: DocumentInterface[]) => {
-            const existingDoc = this.documents.filter(a => a.parentid === doc.parentid)[0]
-            parentDocs[0].childDocs = [...existingDoc?.childDocs || [], doc];
-            this.documents = [...this.documents, ...parentDocs];
-          })
+      docs.sort((a, b) => a.phase - b.phase).forEach(doc => {
+        const { project, ...document } = doc;
+        if (!this.projectList.filter(proj => proj._id === project?._id).length) {
+          if (project) {
+            this.projectList.push({
+              ...project,
+              docs: [document]
+            });
+            this.phaseClick(project._id);
+          }
+        } else {
+          const selectedProject = this.projectList.find(proj => proj._id === project?._id);
+          if (selectedProject) {
+            selectedProject.docs.push(document);
+          }
         }
-      })
+      });
     });
   }
 
@@ -79,5 +92,9 @@ export class SummaryComponent implements OnInit {
         }
       }
     })
+  }
+
+  phaseClick(projectId: any): void {
+    this.expanded.set(projectId, !this.expanded.get(projectId));
   }
 }

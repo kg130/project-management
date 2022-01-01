@@ -19,9 +19,9 @@ export class StatusColorPipe implements PipeTransform {
       case Status.PENDING:
         return '#007bff';
       case Status.RECEIVED:
-        return '#007bff';
+        return '#3bd43b';
       case Status.SIGNED:
-        return '#007bff';
+        return '#3bd43b';
       case Status.VERIFICATION:
         return '#007bff';
       default:

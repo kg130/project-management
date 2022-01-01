@@ -1,17 +1,23 @@
-<div>
-  <div class="p-3">
-    <div
-      class="border"
-      [ngClass]="{'border-bottom-0': documents.length - 1 !== ind}"
-      *ngFor="let doc of documents;let ind = index"
-    >
-      <app-document-details
-        [doc]="doc"
-        [actionAllowed]="true"
-        (onClick)="openProject(doc)"
-        (onEdit)="editDocument($event)"
-        (onDelete)="deleteDocument($event)"
-      ></app-document-details>
+<div class="mt-2" *ngFor="let project of projectList">
+  <div class="px-3 mt-4 phaseLabel" (click)="phaseClick(project?._id || '')">
+    <label class="m-0 cursor-pointer">{{project.name}}</label>
+    <button class="btn py-0">
+      <i *ngIf="expanded.get(project?._id || '')" class="las la-chevron-circle-down"></i>
+      <i *ngIf="!expanded.get(project?._id || '')" class="las la-chevron-circle-right"></i>
+    </button>
+    <!-- <hr *ngIf="!expanded.get(doc.phase)"> -->
+  </div>
+  <div *ngIf="expanded.get(project?._id || '')">
+    <div class="px-3" *ngFor="let doc of (project?.docs || []); let ind=index">
+      <div class="border" [ngClass]="{'border-bottom-0': ((project?.docs?.length || 0) - 1) !== ind}">
+        <app-document-details
+          [doc]="doc"
+          [actionAllowed]="true"
+          (onClick)="openProject(doc)"
+          (onEdit)="editDocument($event)"
+          (onDelete)="deleteDocument($event)"
+        ></app-document-details>
+      </div>
     </div>
   </div>
 </div>

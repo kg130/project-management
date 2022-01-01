@@ -23,7 +23,7 @@
     { "id": 21, "name": "SMC Plan", "phase": 2, "parentid": "15" },
     { "id": 22, "name": "HIRA", "phase": 3, "parentid": "" },
     { "id": 23, "name": "Transformer", "phase": 3, "parentid": "" },
-    { "id": 24, "name": "Load 79.5KVA", "phase": 3, "parentid": "23" },
+    { "id": 24, "name": "Load", "phase": 3, "parentid": "23" },
     { "id": 25, "name": "Quotation", "phase": 3, "parentid": "23" },
     { "id": 26, "name": "Sewage / Water", "phase": 3, "parentid": "" },
     { "id": 27, "name": "Lift", "phase": 3, "parentid": "" },
